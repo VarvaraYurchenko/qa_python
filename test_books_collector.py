@@ -30,3 +30,10 @@ class TestBooksCollector:
         collector.add_new_book('Гарри Поттер')
         collector.set_book_genre('Гарри Поттер', 'Новый жанр')
         assert collector.books_genre['Гарри Поттер'] == ''
+
+    # Проверяем, что get_book_genre возвращает корректный жанр
+    def test_get_book_genre_returns_correct_genre(self, collector):
+        collector.add_new_book('Дюна')
+        collector.set_book_genre('Дюна', 'Фантастика')
+        assert collector.get_book_genre('Дюна') == 'Фантастика'
+
