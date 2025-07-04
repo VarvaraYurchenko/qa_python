@@ -44,3 +44,17 @@ class TestBooksCollector:
         collector.add_new_book('Десять негритят')
         collector.set_book_genre('Десять негритят', 'Детективы')
         assert collector.get_books_with_specific_genre('Детективы') == ['Десять негритят']
+
+    # Проверяем, что get_books_genre возвращает корректный текущий словарь
+    def test_get_books_genre_returns_correct_dict(self, collector):
+        collector.add_new_book('Дюна')
+        collector.set_book_genre('Дюна', 'Фантастика')
+        collector.add_new_book('Десять негритят')
+        collector.set_book_genre('Десять негритят', 'Детективы')
+        expected_dict = {
+            'Дюна': 'Фантастика',
+            'Десять негритят': 'Детективы'
+        }
+        assert collector.get_books_genre() == expected_dict
+
+
