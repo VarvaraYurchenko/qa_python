@@ -37,3 +37,10 @@ class TestBooksCollector:
         collector.set_book_genre('Дюна', 'Фантастика')
         assert collector.get_book_genre('Дюна') == 'Фантастика'
 
+    # Проверяем, что get_books_with_specific_genre возвращает корректные книги
+    def test_get_books_with_specific_genre_returns_correct_books(self, collector):
+        collector.add_new_book('Дюна')
+        collector.set_book_genre('Дюна', 'Фантастика')
+        collector.add_new_book('Десять негритят')
+        collector.set_book_genre('Десять негритят', 'Детективы')
+        assert collector.get_books_with_specific_genre('Детективы') == ['Десять негритят']
