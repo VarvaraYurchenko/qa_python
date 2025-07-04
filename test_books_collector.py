@@ -57,4 +57,13 @@ class TestBooksCollector:
         }
         assert collector.get_books_genre() == expected_dict
 
-
+    # Проверяем, что get_books_for_children исключает книги с возрастным рейтингом
+    def test_get_books_for_children_without_age_rating(self, collector):
+        collector.add_new_book('Каникулы Бонифация')
+        collector.set_book_genre('Каникулы Бонифация', 'Мультфильмы')
+        collector.add_new_book('Десять негритят')
+        collector.set_book_genre('Десять негритят', 'Детективы')
+        collector.add_new_book('Трое в лодке, не считая собаки')
+        collector.set_book_genre('Трое в лодке, не считая собаки', 'Комедии')
+        assert collector.get_books_for_children() == ['Каникулы Бонифация', 'Трое в лодке, не считая собаки']
+        assert 'Десять негритят' not in collector.get_books_for_children()
