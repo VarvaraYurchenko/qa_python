@@ -10,7 +10,7 @@ class TestBooksCollector:
     # Проверяем, что не происходит повторное добавление книги в add_new_book
     def test_add_new_book_duplicate_is_not_added(self, collector):
         collector.add_new_book('Хроники Нарнии')
-        collector.add_new_book('Хроники Нарнии')
+        collector.add_new_book('Хроники Нарнии') # Добавляем книгу повторно
         assert len(collector.books_genre) == 1
 
     # Проверяем, что книга с невалидным именем (0 или больше 40 символов) не добавляется в add_new_book
@@ -67,3 +67,17 @@ class TestBooksCollector:
         collector.set_book_genre('Трое в лодке, не считая собаки', 'Комедии')
         assert collector.get_books_for_children() == ['Каникулы Бонифация', 'Трое в лодке, не считая собаки']
         assert 'Десять негритят' not in collector.get_books_for_children()
+
+    # Проверяем, что add_book_in_favorites добавляет книгу в избранное
+    def test_add_book_in_favorites_book_is_added(self, collector):
+        collector.add_new_book('Гарри Поттер')
+        assert 'Гарри Поттер' in collector.get_books_genre()
+        collector.add_book_in_favorites('Гарри Поттер')
+        assert 'Гарри Поттер' in collector.get_list_of_favorites_books()
+
+    # Проверяем, что add_book_in_favorites не добавляет повторно книгу в избранное
+    def test_add_book_in_favorites_duplicate_is_not_added(self, collector):
+        collector.add_new_book('Гарри Поттер')
+        collector.add_book_in_favorites('Гарри Поттер')
+        collector.add_book_in_favorites('Гарри Поттер') # Добавляем книгу в избранное повторно
+        assert len(collector.get_list_of_favorites_books()) == 1
