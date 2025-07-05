@@ -81,3 +81,19 @@ class TestBooksCollector:
         collector.add_book_in_favorites('Гарри Поттер')
         collector.add_book_in_favorites('Гарри Поттер') # Добавляем книгу в избранное повторно
         assert len(collector.get_list_of_favorites_books()) == 1
+
+    # Проверяем, что delete_book_from_favorites удаляет книгу из избранного, когда она там есть
+    def test_delete_book_from_favorites_book_is_deleted(self, collector):
+        collector.add_new_book('Гарри Поттер')
+        collector.add_book_in_favorites('Гарри Поттер')
+        collector.delete_book_from_favorites('Гарри Поттер')
+        assert 'Гарри Поттер' not in collector.get_list_of_favorites_books()
+
+    # Проверяем, что get_list_of_favorites_books возвращает список избранных книг
+    def test_get_list_of_favorites_books_returns_list_of_favorites(self, collector):
+        collector.add_new_book('Гарри Поттер')
+        collector.add_new_book('Дюна')
+        collector.add_new_book('Десять негритят')
+        collector.add_book_in_favorites('Гарри Поттер')
+        collector.add_book_in_favorites('Дюна')
+        assert collector.get_list_of_favorites_books() == ['Гарри Поттер', 'Дюна']
